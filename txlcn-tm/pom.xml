@@ -6,11 +6,10 @@
     <parent>
         <groupId>com.codingapi.txlcn</groupId>
         <artifactId>tx-lcn</artifactId>
-        <version>5.0.2.xgjk.RELEASE</version>
+        <version>5.0.2.xgjk-SNAPSHOT</version>
     </parent>
 
     <artifactId>txlcn-tm</artifactId>
-    <version>5.0.2.xgjk.RELEASE</version>
     <packaging>jar</packaging>
 
     <dependencies>
