@@ -142,9 +142,9 @@ public class TransactionControlTemplate {
         try {
             txLogger.txTrace(
                     groupId, unitId, "notify group > transaction type: {}, state: {}.", transactionType, state);
-            if (globalContext.isDTXTimeout()) {
+            /*if (globalContext.isDTXTimeout()) {
                 throw new LcnBusinessException("dtx timeout.");
-            }
+            }*/
             state = reliableMessenger.notifyGroup(groupId, state);
             transactionCleanTemplate.clean(groupId, unitId, transactionType, state);
         } catch (TransactionClearException e) {
@@ -153,7 +153,7 @@ public class TransactionControlTemplate {
             dtxExceptionHandler.handleNotifyGroupMessageException(Arrays.asList(groupId, state, unitId, transactionType), e);
         } catch (LcnBusinessException e) {
             // 关闭事务组失败
-            dtxExceptionHandler.handleNotifyGroupBusinessException(Arrays.asList(groupId, state, unitId, transactionType), e.getCause());
+            dtxExceptionHandler.handleNotifyGroupBusinessException(Arrays.asList(groupId, state, unitId, transactionType), e);
         }
         txLogger.txTrace(groupId, unitId, "notify group exception state {}.", state);
     }

@@ -16,6 +16,7 @@
 package com.codingapi.txlcn.tc.core;
 
 
+import com.codingapi.txlcn.common.exception.LcnBusinessException;
 import com.codingapi.txlcn.common.exception.TransactionException;
 import com.codingapi.txlcn.common.util.Transactions;
 import com.codingapi.txlcn.logger.TxLogger;
@@ -89,13 +90,20 @@ public class DTXServiceExecutor {
 
             // 4.3 执行业务
             Object result = dtxLocalControl.doBusinessCode(info);
-
+            
+            //事务发起方判断是否全局超时
+            if (info.isTransactionStart()) {
+                if (globalContext.isDTXTimeout()) {
+                    throw new LcnBusinessException("dtx timeout.");
+                }
+            }
             // 4.4 业务执行成功
             txLogger.txTrace(info.getGroupId(), info.getUnitId(), "business success");
             dtxLocalControl.onBusinessCodeSuccess(info, result);
             return result;
         } catch (TransactionException e) {
             txLogger.error(info.getGroupId(), info.getUnitId(), "before business code error");
+            dtxLocalControl.onBusinessCodeError(info, e);
             throw e;
         } catch (Throwable e) {
             // 4.5 业务执行失败
