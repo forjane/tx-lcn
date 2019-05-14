@@ -30,7 +30,11 @@ public class RpcConfig {
     /**
      * 最大等待时间 (ms)
      */
-    private long waitTime = -1;
+    //private long waitTime = -1;
+    /**
+     * tm与tc之间的通信超时时间超时，-1的话是初始化为1000豪秒
+     */
+    private long waitTime = 10000;
 
     /**
      * 最大缓存锁的数量
