@@ -132,6 +132,6 @@ public class DefaultDTXExceptionHandler implements DTXExceptionHandler {
         }
 
         // 上报Manager，上报直到成功.
-        tmReporter.reportTransactionState(groupId, null, TxExceptionParams.NOTIFY_GROUP_ERROR, state);
+        tmReporter.reportTransactionState(groupId, unitId, TxExceptionParams.NOTIFY_GROUP_ERROR, state);
     }
 }
