@@ -22,3 +22,12 @@ registrar: 未知错误-1   通知事务单元失败0   询问事务状态失败
 TM管理通知事务参与者提交或回滚：DefaultNotifiedUnitService.execute
 
 事务切面代码：DTXServiceExecutor.transactionRunning
+
+MessageConstants netty通讯指令
+RpcConfig waitTime TM-TC调用超时时间配置
+
+
+###配置###
+tx-lcn.springcloud.loadbalance.enabled=true
+
+集群环境下，发起方A多次调用参与方B，A每次都调用B的同一个服务节点，避免lcn模式资源占用死锁

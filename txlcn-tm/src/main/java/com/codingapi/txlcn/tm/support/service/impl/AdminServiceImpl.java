@@ -176,6 +176,7 @@ public class AdminServiceImpl implements AdminService {
             PropertyMapper.get().from(appInfo::getAppName).to(appMod::setModName);
             PropertyMapper.get().from(appInfo::getLabelName).to(appMod::setModId);
             PropertyMapper.get().from(appInfo::getCreateTime).to(t -> appMod.setRegisterTime(dateFormat.format(t)));
+            appMod.setRegisterTime(appMod.getRegisterTime() + " -- " + appInfo.getRemoteKey());
             appMods.add(appMod);
         }
         ListAppMods listAppMods = new ListAppMods();

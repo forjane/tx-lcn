@@ -35,12 +35,13 @@ public class AppInfo {
     private String appName;
 
     /**
-     *  TC标识名称
+     * TC标识名称
      */
     private String labelName;
 
 
     private Date createTime;
 
+    private String remoteKey;
 
 }

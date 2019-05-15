@@ -195,6 +195,7 @@ public class SocketManager {
         appInfo.setAppName(appName);
         appInfo.setLabelName(labelName);
         appInfo.setCreateTime(new Date());
+        appInfo.setRemoteKey(remoteKey);
         if(containsLabelName(labelName)){
             throw new RpcException("labelName:"+labelName+" has exist.");
         }
