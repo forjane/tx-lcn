@@ -31,3 +31,8 @@ RpcConfig waitTime TM-TC调用超时时间配置
 tx-lcn.springcloud.loadbalance.enabled=true
 
 集群环境下，发起方A多次调用参与方B，A每次都调用B的同一个服务节点，避免lcn模式资源占用死锁
+
+
+
+###问题###
+TCC模式在多线程环境下，会有问题，参数获取不是线程安全的
