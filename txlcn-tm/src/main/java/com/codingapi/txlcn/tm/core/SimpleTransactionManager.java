@@ -16,7 +16,6 @@
 package com.codingapi.txlcn.tm.core;
 
 import com.codingapi.txlcn.common.exception.TransactionException;
-import com.codingapi.txlcn.common.util.Transactions;
 import com.codingapi.txlcn.logger.TxLogger;
 import com.codingapi.txlcn.tm.core.storage.TransactionUnit;
 import com.codingapi.txlcn.tm.support.service.TxExceptionService;
@@ -73,7 +72,7 @@ public class SimpleTransactionManager implements TransactionManager {
     }
 
     @Override
-    public void join(DTXContext dtxContext, String unitId, String unitType, String modId, int userState) throws TransactionException {
+    public void join(DTXContext dtxContext, String unitId, String unitType, String modId, int userState, String remoteKey) throws TransactionException {
         //手动回滚时设置状态为回滚状态 0
         if (userState == 0) {
             dtxContext.resetTransactionState(0);
@@ -82,6 +81,7 @@ public class SimpleTransactionManager implements TransactionManager {
         transactionUnit.setModId(modId);
         transactionUnit.setUnitId(unitId);
         transactionUnit.setUnitType(unitType);
+        transactionUnit.setRemoteKey(remoteKey);
         dtxContext.join(transactionUnit);
     }
 
@@ -128,12 +128,12 @@ public class SimpleTransactionManager implements TransactionManager {
                     transUnit.getModId(), transUnit.getUnitId());
             try {
                 List<String> modChannelKeys = rpcClient.remoteKeys(transUnit.getModId());
-                if (modChannelKeys.isEmpty()) {
+                if (modChannelKeys.isEmpty() || !modChannelKeys.contains(transUnit.getRemoteKey())) {
                     // record exception
                     throw new RpcException("offline mod.");
                 }
                 MessageDto respMsg =
-                        rpcClient.request(modChannelKeys.get(0), MessageCreator.notifyUnit(notifyUnitParams));
+                        rpcClient.request(transUnit.getRemoteKey(), MessageCreator.notifyUnit(notifyUnitParams));
                 if (!MessageUtils.statusOk(respMsg)) {
                     // 提交/回滚失败的消息处理
                     List<Object> params = Arrays.asList(notifyUnitParams, transUnit.getModId());

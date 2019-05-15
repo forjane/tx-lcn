@@ -17,8 +17,8 @@ registrar: 未知错误-1   通知事务单元失败0   询问事务状态失败
 ###源码分析###
 事务发起方通知TM管理器事务状态：TransactionControlTemplate.notifyGroup, TM接受代码SimpleTransactionManager.notifyTransaction
 
-事务参与方执行完成后通知TM管理器：TransactionControlTemplate.joinGroup
+事务参与方执行完成后通知TM管理器：TransactionControlTemplate.joinGroup, TM接受代码JoinGroupExecuteService.execute
 
-TM管理通知事务参与则提交或回滚：DefaultNotifiedUnitService.execute
+TM管理通知事务参与者提交或回滚：DefaultNotifiedUnitService.execute
 
 事务切面代码：DTXServiceExecutor.transactionRunning

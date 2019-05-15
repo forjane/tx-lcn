@@ -43,6 +43,8 @@ public class TransactionUnit implements Serializable {
      * 相关业务方法签名
      */
     private String unitId;
+    
+    private String remoteKey;
 
     @Override
     public boolean equals(Object o) {

@@ -43,7 +43,7 @@ public interface TransactionManager {
      * @param transactionState transactionState
      * @throws TransactionException TransactionException
      */
-    void join(DTXContext dtxContext, String unitId, String unitType, String modId, int transactionState) throws TransactionException;
+    void join(DTXContext dtxContext, String unitId, String unitType, String modId, int transactionState,String remoteKey) throws TransactionException;
 
     /**
      * 提交分布式事务。出错会记录异常记录
