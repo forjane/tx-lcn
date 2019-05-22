@@ -36,3 +36,16 @@ tx-lcn.springcloud.loadbalance.enabled=true
 
 ###问题###
 TCC模式在多线程环境下，会有问题，参数获取不是线程安全的
+
+
+###源码改动###
+修复事务全局超时不会滚的bug。DTXServiceExecutor，TransactionControlTemplate
+
+修复上报异常uuid为空的bug。DefaultDTXExceptionHandler
+
+更新TM与TC之间的通信超时时间。RpcConfig
+
+修复集群环境中，通知事务参与者异常。SimpleTransactionManager
+
+更新管理控制台中remotekey显示。AdminServiceImpl
+
