@@ -1,6 +1,6 @@
 ### tx-lcn tc端
 
-微服务之间通信时，通过在请求头中传递x-group-id(事务组ID)来做关联
+微服务之间通信时，通过在请求头中传递x-group-id(事务组ID)来做关联, 5.0版本支持线程池隔离来传递groupid
 
 发起方事务传播不能设置为propagation=DTXPropagation.SUPPORTS
 
