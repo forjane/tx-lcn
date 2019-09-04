@@ -75,7 +75,9 @@ public class TracingHystrixConcurrencyStrategy extends HystrixConcurrencyStrateg
                     return delegate.wrapCallable(callable).call();
                 }
                 log.debug("Hystrix transfer tracing.");
-                TracingContext.init(fields);
+                if (fields != null && fields.size() > 0) {
+                    TracingContext.init(fields);
+                }
                 return delegate.wrapCallable(callable).call();
             } finally {
                 if (isReInitTracingContext) {
